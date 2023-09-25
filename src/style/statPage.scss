@@ -1,0 +1,63 @@
+.stat-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .stats-wrap {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        max-width: 1200px;
+        font-size: 12px;
+        .column {
+            .stat-name {
+                padding: 10px;
+                text-align: center;
+            }
+            .each-player {
+                padding: 10px;
+                text-align: center;
+                border-top: 1px solid black;
+                .btn {
+                    padding: 5px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+                .team1-btn {
+                    background-color: orange;
+                    margin-right: 5px;
+                }
+                .team2-btn {
+                    background-color: aqua;
+                }
+            }
+        }
+    }
+    .team-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 1200px;
+        .team-boxes {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+        }
+        .team-box {
+            width: 550px;
+            height: 600px;
+            border: 1px solid black;
+        }
+        .title {
+            font-size: 20px;
+        }
+        .submit-btn {
+            margin: 30px;
+            background-color: slateblue;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    }
+}
