@@ -17,7 +17,22 @@ export default async function stat(req: NextApiRequest, res: NextApiResponse) {
                 .map(el => el.trim())
                 .filter(el => el !== '');
             const dataArr: PlayerStat[] = [];
-            const eachPlayer: PlayerStat = {};
+            let eachPlayer: PlayerStat = {
+                assist: 0,
+                block: 0,
+                fgNum: 0,
+                fgRate: 0,
+                ftNum: 0,
+                ftRate: 0,
+                games: 0,
+                name: '',
+                points: 0,
+                pt3Num: 0,
+                pt3Rate: 0,
+                rank: 0,
+                rebound: 0,
+                steal: 0
+            };
             for (let i = 0; i < 281; i++) {
                 if (i % 14 === 0) {
                     dataArr.push({ ...eachPlayer });

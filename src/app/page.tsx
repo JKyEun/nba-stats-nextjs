@@ -1,15 +1,20 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import getStats from './apis/stat';
+import { getStats } from './apis/stat';
 import { PlayerStat } from './types/stat';
 import statSpec from './constants/stat';
 import '../style/statPage.scss';
+import { useSetRecoilState } from 'recoil';
+import { selectedTeam } from './recoil/atom';
+import { useRouter } from 'next/navigation';
 
 export default function StatPage() {
     const [playerStats, setPlayerStats] = useState<PlayerStat[]>([]);
     const [team1, setTeam1] = useState<PlayerStat[]>([]);
     const [team2, setTeam2] = useState<PlayerStat[]>([]);
+    const router = useRouter();
+    const setSelectedTeam = useSetRecoilState(selectedTeam);
 
     const setStats = async () => {
         const stat = await getStats();
@@ -28,6 +33,12 @@ export default function StatPage() {
         const setTeam = teamNum === 1 ? setTeam1 : setTeam2;
         const removedTeam = team.filter(el => el.name !== player.name);
         setTeam(removedTeam);
+    };
+
+    const goResultPage = () => {
+        if (team1.length !== 5 || team2.length !== 5) return alert('팀은 5명이어야 합니다.');
+        setSelectedTeam([team1, team2]);
+        router.push('/result');
     };
 
     useEffect(() => {
@@ -84,7 +95,9 @@ export default function StatPage() {
                         ))}
                     </div>
                 </div>
-                <div className='submit-btn'>제출</div>
+                <div onClick={goResultPage} className='submit-btn'>
+                    제출
+                </div>
             </div>
         </div>
     );

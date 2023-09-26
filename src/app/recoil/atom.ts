@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-export const isLoginState = atom({
-    key: 'isLoginState',
-    default: false
+export const selectedTeam = atom({
+    key: 'selectedTeam',
+    default: [[], []] as any
 });

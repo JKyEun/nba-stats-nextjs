@@ -1,3 +1,4 @@
+import { PlayerStat } from '../types/stat';
 import api from './index';
 
 const getStats = async () => {
@@ -9,4 +10,13 @@ const getStats = async () => {
     }
 };
 
-export default getStats;
+const getGameResult = async (selectedTeam: [PlayerStat[]]) => {
+    try {
+        const res = await api.post('/result', selectedTeam);
+        return res.data;
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+export { getStats, getGameResult };
