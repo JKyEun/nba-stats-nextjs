@@ -23,6 +23,13 @@ export default function StatPage() {
         setTeam(cur => [...cur, player]);
     };
 
+    const removePlayer = (teamNum: number, player: PlayerStat) => {
+        const team = teamNum === 1 ? team1 : team2;
+        const setTeam = teamNum === 1 ? setTeam1 : setTeam2;
+        const removedTeam = team.filter(el => el.name !== player.name);
+        setTeam(removedTeam);
+    };
+
     useEffect(() => {
         setStats();
     }, []);
@@ -59,7 +66,9 @@ export default function StatPage() {
                         {team1.map(player => (
                             <div key={player.name}>
                                 <span>{player.name}</span>
-                                <span> X</span>
+                                <span onClick={() => removePlayer(1, player)} className='remove-btn'>
+                                    ❌
+                                </span>
                             </div>
                         ))}
                     </div>
@@ -68,7 +77,9 @@ export default function StatPage() {
                         {team2.map(player => (
                             <div key={player.name}>
                                 <span>{player.name}</span>
-                                <span> X</span>
+                                <span onClick={() => removePlayer(2, player)} className='remove-btn'>
+                                    ❌
+                                </span>
                             </div>
                         ))}
                     </div>

@@ -43,6 +43,13 @@
             width: 100%;
             justify-content: space-around;
         }
+        .remove-btn {
+            margin-left: 5px;
+            background-color: cadetblue;
+            border-radius: 3px;
+            padding: 2px;
+            cursor: pointer;
+        }
         .team-box {
             width: 550px;
             height: 600px;
