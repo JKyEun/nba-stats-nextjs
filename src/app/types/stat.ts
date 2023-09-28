@@ -14,3 +14,10 @@ export type PlayerStat = {
     rebound: number;
     steal: number;
 };
+
+export type TeamSpec = {
+    assist: number;
+    reboundStealSum: number;
+    opponentBlock: number;
+    sorted: PlayerStat[];
+};

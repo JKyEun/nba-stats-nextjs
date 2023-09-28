@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { PlayerStat } from '../../app/types/stat';
+import { PlayerStat, TeamSpec } from '../../app/types/stat';
 const ENTIRE_ASSIST_AVERAGE = 5.73;
 const ENTIRE_REB_STL_AVERAGE = 7.83;
+const POSSESSION_RATE = [0.3, 0.25, 0.2, 0.15, 0.1];
 
 export default async function result(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
@@ -11,25 +12,46 @@ export default async function result(req: NextApiRequest, res: NextApiResponse) 
             const team1Class = new Team(team1);
             const team2Class = new Team(team2);
 
-            const teamSpec = {
+            const teamSpecs = {
                 team1: {
                     assist: team1Class.getAssistAvg(),
                     reboundStealSum: team1Class.getRebStlSumAvg(),
-                    block: team1Class.getBlockAvg(),
+                    opponentBlock: team2Class.getBlockAvg(),
                     sorted: team1Class.getPlayerSortByFG()
                 },
                 team2: {
                     assist: team2Class.getAssistAvg(),
                     reboundStealSum: team2Class.getRebStlSumAvg(),
-                    block: team2Class.getBlockAvg(),
+                    opponentBlock: team1Class.getBlockAvg(),
                     sorted: team2Class.getPlayerSortByFG()
                 }
             };
 
-            const score = {
-                team1: [],
-                team2: []
+            const getPlayerScore = (teamSpec: TeamSpec, team: PlayerStat[]) => {
+                const fgVar = teamSpec.assist - ENTIRE_ASSIST_AVERAGE - teamSpec.opponentBlock;
+                const possesionVar = teamSpec.reboundStealSum - ENTIRE_REB_STL_AVERAGE;
+                const possesion = 60 + possesionVar;
+                const score = team.map((player: PlayerStat, idx) => {
+                    const adjustedFGRate = (player.fgRate + fgVar) / 100;
+                    const isMinus = Math.random() < 0.5 ? true : false;
+                    const condition = Math.floor(Math.random() * 10) * (isMinus ? -1 : 1);
+                    const virtualScore =
+                        possesion * POSSESSION_RATE[idx] * adjustedFGRate * 2 +
+                        player.pt3Num +
+                        player.ftNum +
+                        condition;
+                    const realScore = player.points;
+                    return { name: player.name, points: Math.round((virtualScore + realScore) / 2) };
+                });
+                return score;
             };
+
+            const score = {
+                team1: getPlayerScore(teamSpecs.team1, team1),
+                team2: getPlayerScore(teamSpecs.team2, team2)
+            };
+
+            res.status(200).send(score);
         } catch (err) {
             console.error(err);
             res.status(500).send('Error 500.');
