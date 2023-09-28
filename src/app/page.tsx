@@ -23,8 +23,11 @@ export default function StatPage() {
 
     const addPlayer = (teamNum: number, player: PlayerStat) => {
         const team = teamNum === 1 ? team1 : team2;
+        const otherTeam = teamNum === 1 ? team2 : team1;
         const setTeam = teamNum === 1 ? setTeam1 : setTeam2;
         if (team.length >= 5) return alert('이미 5명입니다.');
+        if (team.filter(el => el.name === player.name).length > 0) return alert('이미 포함된 선수입니다.');
+        if (otherTeam.filter(el => el.name === player.name).length > 0) return alert('상대팀에 포함된 선수입니다.');
         setTeam(cur => [...cur, player]);
     };
 

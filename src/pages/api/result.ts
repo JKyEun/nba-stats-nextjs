@@ -30,7 +30,7 @@ export default async function result(req: NextApiRequest, res: NextApiResponse) 
             const getPlayerScore = (teamSpec: TeamSpec, team: PlayerStat[]) => {
                 const fgVar = teamSpec.assist - ENTIRE_ASSIST_AVERAGE - teamSpec.opponentBlock;
                 const possesionVar = teamSpec.reboundStealSum - ENTIRE_REB_STL_AVERAGE;
-                const possesion = 60 + possesionVar;
+                const possesion = 50 + possesionVar;
                 const score = team.map((player: PlayerStat, idx) => {
                     const adjustedFGRate = (player.fgRate + fgVar) / 100;
                     const isMinus = Math.random() < 0.5 ? true : false;
