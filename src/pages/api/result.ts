@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { PlayerStat, TeamSpec } from '../../app/types/stat';
 const ENTIRE_ASSIST_AVERAGE = 5.73;
 const ENTIRE_REB_STL_AVERAGE = 7.83;
-const POSSESSION_RATE = [0.3, 0.25, 0.2, 0.15, 0.1];
+const POSSESSION_RATE = [0.5, 0.26, 0.12, 0.07, 0.05];
 
 export default async function result(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
@@ -40,8 +40,9 @@ export default async function result(req: NextApiRequest, res: NextApiResponse) 
                         player.pt3Num +
                         player.ftNum +
                         condition;
+                    console.log(virtualScore, player.name);
                     const realScore = player.points;
-                    return { name: player.name, points: Math.round((virtualScore + realScore) / 2) };
+                    return { name: player.name, points: Math.round((virtualScore * 9 + realScore) / 10) };
                 });
                 return score;
             };
