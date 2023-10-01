@@ -30,7 +30,7 @@ export default function Result() {
             <div className='result-wrap'>
                 <div className='team-wrap'>
                     <div className='total-score'>
-                        {result && result.team1.reduce((acc, item) => acc + item.points, 0)}
+                        {result && result.team1.reduce((acc, item) => acc + item.points, 0) + 20}
                     </div>
                     {result &&
                         result.team1.map(el => (
@@ -39,6 +39,10 @@ export default function Result() {
                                 <span className='points'>{el.points}</span>
                             </div>
                         ))}
+                    <div>
+                        <span className='name'>벤치멤버</span>
+                        <span className='points'>20</span>
+                    </div>
                 </div>
                 <div className='team-wrap'>
                     <div className='total-score'>
@@ -51,6 +55,10 @@ export default function Result() {
                                 <span className='points'>{el.points}</span>
                             </div>
                         ))}
+                    <div>
+                        <span className='name'>벤치멤버</span>
+                        <span className='points'>20</span>
+                    </div>
                 </div>
             </div>
         </div>
