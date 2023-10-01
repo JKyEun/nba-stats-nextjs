@@ -1,0 +1,28 @@
+.result-page {
+    display: flex;
+    justify-content: center;
+    .result-wrap {
+        display: flex;
+        justify-content: center;
+        margin-top: 27vh;
+        width: 100%;
+        max-width: 1200px;
+        .team-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            .total-score {
+                font-size: 30px;
+                margin-bottom: 10px;
+            }
+            .name {
+                margin-right: 10px;
+                font-size: 20px;
+            }
+            .points {
+                font-size: 20px;
+            }
+        }
+    }
+}

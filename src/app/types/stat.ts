@@ -21,3 +21,13 @@ export type TeamSpec = {
     opponentBlock: number;
     sorted: PlayerStat[];
 };
+
+type NameAndPoints = {
+    name: string;
+    points: number;
+};
+
+export type Result = {
+    team1: NameAndPoints[];
+    team2: NameAndPoints[];
+};

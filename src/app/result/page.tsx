@@ -5,11 +5,13 @@ import { useRecoilValue } from 'recoil';
 import { selectedTeam } from '../recoil/atom';
 import { useRouter } from 'next/navigation';
 import { getGameResult } from '../apis/stat';
+import { Result } from '../types/stat';
+import '../../style/resultPage.scss';
 
 export default function Result() {
     const router = useRouter();
     const teamData = useRecoilValue(selectedTeam);
-    const [result, setResult] = useState();
+    const [result, setResult] = useState<Result>();
 
     const callGetGameResult = async () => {
         const res = await getGameResult(teamData);
@@ -23,5 +25,34 @@ export default function Result() {
         callGetGameResult();
     }, [teamData, router]);
 
-    return <div>page</div>;
+    return (
+        <div className='result-page'>
+            <div className='result-wrap'>
+                <div className='team-wrap'>
+                    <div className='total-score'>
+                        {result && result.team1.reduce((acc, item) => acc + item.points, 0)}
+                    </div>
+                    {result &&
+                        result.team1.map(el => (
+                            <div key={el.name}>
+                                <span className='name'>{el.name}</span>
+                                <span className='points'>{el.points}</span>
+                            </div>
+                        ))}
+                </div>
+                <div className='team-wrap'>
+                    <div className='total-score'>
+                        {result && result.team2.reduce((acc, item) => acc + item.points, 0)}
+                    </div>
+                    {result &&
+                        result.team2.map(el => (
+                            <div key={el.name}>
+                                <span className='name'>{el.name}</span>
+                                <span className='points'>{el.points}</span>
+                            </div>
+                        ))}
+                </div>
+            </div>
+        </div>
+    );
 }
