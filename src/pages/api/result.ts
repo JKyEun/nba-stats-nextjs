@@ -34,7 +34,7 @@ export default async function result(req: NextApiRequest, res: NextApiResponse) 
                 const score = team.map((player: PlayerStat, idx) => {
                     const adjustedFGRate = (player.fgRate + fgVar) / 100;
                     const isMinus = Math.random() < 0.5 ? true : false;
-                    const condition = Math.floor(Math.random() * 10) * (isMinus ? -1 : 1);
+                    const condition = Math.floor(Math.random() * 5) * (isMinus ? -1 : 1);
                     const virtualScore =
                         possesion * POSSESSION_RATE[idx] * adjustedFGRate * 2 +
                         player.pt3Num +
