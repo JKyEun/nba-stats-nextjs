@@ -1,6 +1,7 @@
 .result-page {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     .result-wrap {
         display: flex;
         justify-content: center;
@@ -24,5 +25,13 @@
                 font-size: 20px;
             }
         }
+    }
+    .back-btn {
+        margin: 30px;
+        background-color: slateblue;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
     }
 }

@@ -20,6 +20,10 @@ export default function Result() {
         console.log(result);
     };
 
+    const backToStatPage = () => {
+        router.push('/');
+    };
+
     useEffect(() => {
         if (teamData[0].length === 0) return router.push('/');
         callGetGameResult();
@@ -60,6 +64,9 @@ export default function Result() {
                         <span className='points'>20</span>
                     </div>
                 </div>
+            </div>
+            <div onClick={backToStatPage} className='back-btn'>
+                돌아가기
             </div>
         </div>
     );
