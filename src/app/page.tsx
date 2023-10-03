@@ -8,17 +8,20 @@ import '../style/statPage.scss';
 import { useSetRecoilState } from 'recoil';
 import { selectedTeam } from './recoil/atom';
 import { useRouter } from 'next/navigation';
+import Loading from './components/Loading';
 
 export default function StatPage() {
     const [playerStats, setPlayerStats] = useState<PlayerStat[]>([]);
     const [team1, setTeam1] = useState<PlayerStat[]>([]);
     const [team2, setTeam2] = useState<PlayerStat[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const router = useRouter();
     const setSelectedTeam = useSetRecoilState(selectedTeam);
 
     const setStats = async () => {
         const stat = await getStats();
         setPlayerStats(stat);
+        setIsLoading(false);
     };
 
     const addPlayer = (teamNum: number, player: PlayerStat) => {
@@ -50,33 +53,37 @@ export default function StatPage() {
 
     return (
         <div className='stat-page'>
-            <div className='stats-wrap'>
-                {statSpec.map(stat => (
-                    <div
-                        key={stat.key}
-                        className={
-                            stat.name === 'NAME' ? 'column name' : stat.name === 'TEAM' ? 'column team' : 'column'
-                        }>
-                        <div className='stat-name'>{stat.name}</div>
-                        {playerStats.map(player => (
-                            <div key={player.name} className='each-player'>
-                                {stat.name === 'TEAM' ? (
-                                    <>
-                                        <span onClick={() => addPlayer(1, player)} className='btn team1-btn'>
-                                            TEAM 1
-                                        </span>
-                                        <span onClick={() => addPlayer(2, player)} className='btn team2-btn'>
-                                            TEAM 2
-                                        </span>
-                                    </>
-                                ) : (
-                                    player[stat.key as keyof PlayerStat]
-                                )}
-                            </div>
-                        ))}
-                    </div>
-                ))}
-            </div>
+            {isLoading ? (
+                <Loading />
+            ) : (
+                <div className='stats-wrap'>
+                    {statSpec.map(stat => (
+                        <div
+                            key={stat.key}
+                            className={
+                                stat.name === 'NAME' ? 'column name' : stat.name === 'TEAM' ? 'column team' : 'column'
+                            }>
+                            <div className='stat-name'>{stat.name}</div>
+                            {playerStats.map(player => (
+                                <div key={player.name} className='each-player'>
+                                    {stat.name === 'TEAM' ? (
+                                        <>
+                                            <span onClick={() => addPlayer(1, player)} className='btn team1-btn'>
+                                                TEAM 1
+                                            </span>
+                                            <span onClick={() => addPlayer(2, player)} className='btn team2-btn'>
+                                                TEAM 2
+                                            </span>
+                                        </>
+                                    ) : (
+                                        player[stat.key as keyof PlayerStat]
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+            )}
             <div className='team-wrap'>
                 <div className='team-boxes'>
                     <div className='team-1 team-box'>
