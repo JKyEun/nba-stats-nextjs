@@ -4,10 +4,12 @@
     align-items: center;
     .stats-wrap {
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         width: 100%;
         max-width: 1200px;
         font-size: 12px;
+        border-bottom: 1px solid black;
+        margin-bottom: 30px;
         .column {
             .stat-name {
                 padding: 10px;
@@ -30,6 +32,12 @@
                     background-color: aqua;
                 }
             }
+        }
+        .column.name {
+            min-width: 170px;
+        }
+        .column.team {
+            min-width: 130px;
         }
     }
     .team-wrap {

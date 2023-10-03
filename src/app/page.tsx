@@ -52,7 +52,11 @@ export default function StatPage() {
         <div className='stat-page'>
             <div className='stats-wrap'>
                 {statSpec.map(stat => (
-                    <div key={stat.key} className={stat.name === 'NAME' ? 'column name' : 'column'}>
+                    <div
+                        key={stat.key}
+                        className={
+                            stat.name === 'NAME' ? 'column name' : stat.name === 'TEAM' ? 'column team' : 'column'
+                        }>
                         <div className='stat-name'>{stat.name}</div>
                         {playerStats.map(player => (
                             <div key={player.name} className='each-player'>
