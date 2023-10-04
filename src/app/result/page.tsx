@@ -50,7 +50,7 @@ export default function Result() {
                 </div>
                 <div className='team-wrap'>
                     <div className='total-score'>
-                        {result && result.team2.reduce((acc, item) => acc + item.points, 0)}
+                        {result && result.team2.reduce((acc, item) => acc + item.points, 0) + 20}
                     </div>
                     {result &&
                         result.team2.map(el => (
