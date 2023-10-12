@@ -12,8 +12,7 @@ import Loading from './components/Loading';
 
 export default function StatPage() {
     const [playerStats, setPlayerStats] = useState<PlayerStat[]>([]);
-    const [team1, setTeam1] = useState<PlayerStat[]>([]);
-    const [team2, setTeam2] = useState<PlayerStat[]>([]);
+    const [team, setTeam] = useState<PlayerStat[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const router = useRouter();
     const setSelectedTeam = useSetRecoilState(selectedTeam);
@@ -25,27 +24,21 @@ export default function StatPage() {
     };
 
     const addPlayer = (teamNum: number, player: PlayerStat) => {
-        const team = teamNum === 1 ? team1 : team2;
-        const otherTeam = teamNum === 1 ? team2 : team1;
-        const setTeam = teamNum === 1 ? setTeam1 : setTeam2;
         if (team.length >= 5) return alert('이미 5명입니다.');
         if (team.filter(el => el.name === player.name).length > 0) return alert('이미 포함된 선수입니다.');
-        if (otherTeam.filter(el => el.name === player.name).length > 0) return alert('상대팀에 포함된 선수입니다.');
-        const costSum = team.reduce((acc, item) => acc + item.cost, 0) / 5;
-        if (costSum > 15) return alert('$15 초과입니다.');
         setTeam(cur => [...cur, player]);
     };
 
     const removePlayer = (teamNum: number, player: PlayerStat) => {
-        const team = teamNum === 1 ? team1 : team2;
-        const setTeam = teamNum === 1 ? setTeam1 : setTeam2;
         const removedTeam = team.filter(el => el.name !== player.name);
         setTeam(removedTeam);
     };
 
     const goResultPage = () => {
-        if (team1.length !== 5 || team2.length !== 5) return alert('팀은 5명이어야 합니다.');
-        setSelectedTeam([team1, team2]);
+        if (team.length !== 5) return alert('팀은 5명이어야 합니다.');
+        const costSum = team.reduce((acc, item) => acc + item.cost, 0) / 5;
+        if (costSum > 15) return alert('$15 초과입니다.');
+        setSelectedTeam(team);
         router.push('/result');
     };
 
@@ -70,7 +63,7 @@ export default function StatPage() {
                                 <div key={player.name} className='each-player'>
                                     {stat.name === 'TEAM' ? (
                                         <>
-                                            <span onClick={() => addPlayer(1, player)} className='btn team1-btn'>
+                                            <span onClick={() => addPlayer(1, player)} className='btn team-btn'>
                                                 영입하기
                                             </span>
                                         </>
@@ -88,7 +81,7 @@ export default function StatPage() {
             <div className='team-wrap'>
                 <div className='team-box'>
                     <div className='title'>MY TEAM</div>
-                    {team1.map(player => (
+                    {team.map(player => (
                         <div key={player.name}>
                             <span>{player.name}</span>
                             <span onClick={() => removePlayer(1, player)} className='remove-btn'>
