@@ -13,6 +13,7 @@ export type PlayerStat = {
     rank: number;
     rebound: number;
     steal: number;
+    cost: number;
 };
 
 export type TeamSpec = {

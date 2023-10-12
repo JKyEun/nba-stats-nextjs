@@ -31,6 +31,8 @@ export default function StatPage() {
         if (team.length >= 5) return alert('이미 5명입니다.');
         if (team.filter(el => el.name === player.name).length > 0) return alert('이미 포함된 선수입니다.');
         if (otherTeam.filter(el => el.name === player.name).length > 0) return alert('상대팀에 포함된 선수입니다.');
+        const costSum = team.reduce((acc, item) => acc + item.cost, 0) / 5;
+        if (costSum > 15) return alert('$15 초과입니다.');
         setTeam(cur => [...cur, player]);
     };
 
@@ -69,12 +71,11 @@ export default function StatPage() {
                                     {stat.name === 'TEAM' ? (
                                         <>
                                             <span onClick={() => addPlayer(1, player)} className='btn team1-btn'>
-                                                TEAM 1
-                                            </span>
-                                            <span onClick={() => addPlayer(2, player)} className='btn team2-btn'>
-                                                TEAM 2
+                                                영입하기
                                             </span>
                                         </>
+                                    ) : stat.name === 'COST' ? (
+                                        `$ ${player[stat.key as keyof PlayerStat]}`
                                     ) : (
                                         player[stat.key as keyof PlayerStat]
                                     )}
@@ -85,29 +86,16 @@ export default function StatPage() {
                 </div>
             )}
             <div className='team-wrap'>
-                <div className='team-boxes'>
-                    <div className='team-1 team-box'>
-                        <div className='title'>TEAM 1</div>
-                        {team1.map(player => (
-                            <div key={player.name}>
-                                <span>{player.name}</span>
-                                <span onClick={() => removePlayer(1, player)} className='remove-btn'>
-                                    ❌
-                                </span>
-                            </div>
-                        ))}
-                    </div>
-                    <div className='team-2 team-box'>
-                        <div className='title'>TEAM 2</div>
-                        {team2.map(player => (
-                            <div key={player.name}>
-                                <span>{player.name}</span>
-                                <span onClick={() => removePlayer(2, player)} className='remove-btn'>
-                                    ❌
-                                </span>
-                            </div>
-                        ))}
-                    </div>
+                <div className='team-box'>
+                    <div className='title'>MY TEAM</div>
+                    {team1.map(player => (
+                        <div key={player.name}>
+                            <span>{player.name}</span>
+                            <span onClick={() => removePlayer(1, player)} className='remove-btn'>
+                                ❌
+                            </span>
+                        </div>
+                    ))}
                 </div>
                 <div onClick={goResultPage} className='submit-btn'>
                     제출

@@ -1,5 +1,6 @@
 const statSpec = [
     { name: 'RANK', key: 'rank' },
+    { name: 'COST', key: 'cost' },
     { name: 'NAME', key: 'name' },
     { name: 'GAMES', key: 'games' },
     { name: 'POINTS', key: 'points' },

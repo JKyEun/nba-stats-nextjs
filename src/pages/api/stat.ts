@@ -31,12 +31,18 @@ export default async function stat(req: NextApiRequest, res: NextApiResponse) {
                 pt3Rate: 0,
                 rank: 0,
                 rebound: 0,
-                steal: 0
+                steal: 0,
+                cost: 0
             };
+            let cost = 6;
             for (let i = 0; i < 281; i++) {
                 if (i % 14 === 0) {
                     dataArr.push({ ...eachPlayer });
                     eachPlayer.rank = +arr[i];
+                    if (i % (14 * 4) === 0) {
+                        cost--;
+                    }
+                    eachPlayer.cost = cost;
                 } else if (i % 14 === 1) {
                     eachPlayer.name = arr[i];
                 } else if (i % 14 === 2) {
