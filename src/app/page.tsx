@@ -5,17 +5,17 @@ import { getStats } from './apis/stat';
 import { PlayerStat } from './types/stat';
 import statSpec from './constants/stat';
 import '../style/statPage.scss';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { selectedTeam } from './recoil/atom';
 import { useRouter } from 'next/navigation';
 import Loading from './components/Loading';
 
 export default function StatPage() {
     const [playerStats, setPlayerStats] = useState<PlayerStat[]>([]);
-    const [team, setTeam] = useState<PlayerStat[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const router = useRouter();
-    const setSelectedTeam = useSetRecoilState(selectedTeam);
+    const [myTeam, setMyTeam] = useRecoilState<PlayerStat[]>(selectedTeam);
+    const costSum = myTeam.reduce((acc, item) => acc + item.cost, 0);
 
     const setStats = async () => {
         const stat = await getStats();
@@ -23,22 +23,21 @@ export default function StatPage() {
         setIsLoading(false);
     };
 
-    const addPlayer = (teamNum: number, player: PlayerStat) => {
-        if (team.length >= 5) return alert('이미 5명입니다.');
-        if (team.filter(el => el.name === player.name).length > 0) return alert('이미 포함된 선수입니다.');
-        setTeam(cur => [...cur, player]);
+    const addPlayer = (player: PlayerStat) => {
+        if (myTeam.length >= 5) return alert('이미 5명입니다.');
+        if (myTeam.filter(el => el.name === player.name).length > 0) return alert('이미 포함된 선수입니다.');
+        if (costSum + player.cost > 15) return alert('$15 이하로만 선수를 구성해야 합니다.');
+        setMyTeam(cur => [...cur, player]);
     };
 
-    const removePlayer = (teamNum: number, player: PlayerStat) => {
-        const removedTeam = team.filter(el => el.name !== player.name);
-        setTeam(removedTeam);
+    const removePlayer = (player: PlayerStat) => {
+        const removedTeam = myTeam.filter(el => el.name !== player.name);
+        setMyTeam(removedTeam);
     };
 
     const goResultPage = () => {
-        if (team.length !== 5) return alert('팀은 5명이어야 합니다.');
-        const costSum = team.reduce((acc, item) => acc + item.cost, 0) / 5;
-        if (costSum > 15) return alert('$15 초과입니다.');
-        setSelectedTeam(team);
+        if (myTeam.length !== 5) return alert('팀은 5명이어야 합니다.');
+        if (costSum > 15) return alert('$15 이하로만 선수를 구성해야 합니다.');
         router.push('/result');
     };
 
@@ -63,7 +62,7 @@ export default function StatPage() {
                                 <div key={player.name} className='each-player'>
                                     {stat.name === 'TEAM' ? (
                                         <>
-                                            <span onClick={() => addPlayer(1, player)} className='btn team-btn'>
+                                            <span onClick={() => addPlayer(player)} className='btn team-btn'>
                                                 영입하기
                                             </span>
                                         </>
@@ -80,11 +79,15 @@ export default function StatPage() {
             )}
             <div className='team-wrap'>
                 <div className='team-box'>
-                    <div className='title'>MY TEAM</div>
-                    {team.map(player => (
+                    <div className='title-wrap'>
+                        <div className='title'>MY TEAM</div>
+                        <div className='cost'>Current Cost: $ {costSum}</div>
+                    </div>
+                    {myTeam.map(player => (
                         <div key={player.name}>
-                            <span>{player.name}</span>
-                            <span onClick={() => removePlayer(1, player)} className='remove-btn'>
+                            <span className='player-name'>{player.name}</span>
+                            <span className='player-cost'>$ {player.cost}</span>
+                            <span onClick={() => removePlayer(player)} className='remove-btn'>
                                 ❌
                             </span>
                         </div>

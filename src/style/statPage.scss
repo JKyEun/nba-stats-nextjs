@@ -33,7 +33,7 @@
             min-width: 170px;
         }
         .column.team {
-            min-width: 150px;
+            min-width: 100px;
         }
     }
     .team-wrap {
@@ -60,9 +60,13 @@
             border: 1px solid black;
             padding: 20px;
         }
-        .title {
-            font-size: 20px;
-            margin-bottom: 20px;
+        .title-wrap {
+            display: flex;
+            justify-content: space-between;
+            .title {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
         }
         .submit-btn {
             margin: 30px;
