@@ -1,35 +1,35 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { PlayerStat, TeamSpec } from '../../app/types/stat';
-const ENTIRE_ASSIST_AVERAGE = 5.73;
-const ENTIRE_REB_STL_AVERAGE = 7.83;
 const POSSESSION_RATE = [0.5, 0.26, 0.12, 0.07, 0.05];
 
 export default async function result(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
         try {
-            const [team1, team2] = req.body;
+            const myTeam = req.body.selectedTeam;
+            const playerStatTable: PlayerStat[] = req.body.playerStatTable;
+            const entireAssistAvg = Number(
+                (playerStatTable.reduce((acc, item) => acc + item.assist, 0) / playerStatTable.length).toFixed(2)
+            );
+            const entireRebStlAvg = Number(
+                (
+                    playerStatTable.reduce((acc, item) => acc + item.rebound + item.steal, 0) / playerStatTable.length
+                ).toFixed(2)
+            );
+            const entireBlkAvg = Number(
+                (playerStatTable.reduce((acc, item) => acc + item.block, 0) / playerStatTable.length).toFixed(2)
+            );
 
-            const team1Class = new Team(team1);
-            const team2Class = new Team(team2);
-
-            const teamSpecs = {
-                team1: {
-                    assist: team1Class.getAssistAvg(),
-                    reboundStealSum: team1Class.getRebStlSumAvg(),
-                    opponentBlock: team2Class.getBlockAvg(),
-                    sorted: team1Class.getPlayerSortByFG()
-                },
-                team2: {
-                    assist: team2Class.getAssistAvg(),
-                    reboundStealSum: team2Class.getRebStlSumAvg(),
-                    opponentBlock: team1Class.getBlockAvg(),
-                    sorted: team2Class.getPlayerSortByFG()
-                }
+            const myTeamClass = new Team(myTeam);
+            const teamSpec = {
+                assist: myTeamClass.getAssistAvg(),
+                reboundStealSum: myTeamClass.getRebStlSumAvg(),
+                opponentBlock: entireBlkAvg,
+                sorted: myTeamClass.getPlayerSortByFG()
             };
 
             const getPlayerScore = (teamSpec: TeamSpec, team: PlayerStat[]) => {
-                const fgVar = teamSpec.assist - ENTIRE_ASSIST_AVERAGE - teamSpec.opponentBlock;
-                const possesionVar = teamSpec.reboundStealSum - ENTIRE_REB_STL_AVERAGE;
+                const fgVar = teamSpec.assist - entireAssistAvg - teamSpec.opponentBlock;
+                const possesionVar = teamSpec.reboundStealSum - entireRebStlAvg;
                 const possesion = 50 + possesionVar;
                 const score = team.map((player: PlayerStat, idx) => {
                     const adjustedFGRate = (player.fgRate + fgVar) / 100;
@@ -40,16 +40,15 @@ export default async function result(req: NextApiRequest, res: NextApiResponse) 
                         player.pt3Num +
                         player.ftNum +
                         condition;
-                    console.log(virtualScore, player.name);
                     const realScore = player.points;
-                    return { name: player.name, points: Math.round((virtualScore * 9 + realScore) / 10) };
+                    return { name: player.name, points: Number(((virtualScore * 9 + realScore) / 10).toFixed(1)) };
                 });
                 return score;
             };
 
             const score = {
-                team1: getPlayerScore(teamSpecs.team1, team1),
-                team2: getPlayerScore(teamSpecs.team2, team2)
+                offense: getPlayerScore(teamSpec, myTeam),
+                defense: []
             };
 
             res.status(200).send(score);

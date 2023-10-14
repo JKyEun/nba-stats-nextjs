@@ -10,9 +10,13 @@ const getStats = async () => {
     }
 };
 
-const getGameResult = async (selectedTeam: [PlayerStat[]]) => {
+const getGameResult = async (selectedTeam: [PlayerStat[]], playerStatTable: PlayerStat[]) => {
     try {
-        const res = await api.post('/result', selectedTeam);
+        const payload = {
+            selectedTeam,
+            playerStatTable
+        };
+        const res = await api.post('/result', payload);
         return res.data;
     } catch (err) {
         console.error(err);

@@ -6,14 +6,14 @@ import { PlayerStat } from './types/stat';
 import statSpec from './constants/stat';
 import '../style/statPage.scss';
 import { useRecoilState } from 'recoil';
-import { selectedTeam } from './recoil/atom';
+import { playerStatTable, selectedTeam } from './recoil/atom';
 import { useRouter } from 'next/navigation';
 import Loading from './components/Loading';
 
 export default function StatPage() {
-    const [playerStats, setPlayerStats] = useState<PlayerStat[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
     const router = useRouter();
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [playerStats, setPlayerStats] = useRecoilState<PlayerStat[]>(playerStatTable);
     const [myTeam, setMyTeam] = useRecoilState<PlayerStat[]>(selectedTeam);
     const costSum = myTeam.reduce((acc, item) => acc + item.cost, 0);
 

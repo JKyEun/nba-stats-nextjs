@@ -29,6 +29,6 @@ type NameAndPoints = {
 };
 
 export type Result = {
-    team1: NameAndPoints[];
-    team2: NameAndPoints[];
+    offense: NameAndPoints[];
+    defense: NameAndPoints[];
 };
