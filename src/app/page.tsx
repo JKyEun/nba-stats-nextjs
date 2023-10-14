@@ -67,7 +67,7 @@ export default function StatPage() {
                                             </span>
                                         </>
                                     ) : stat.name === 'COST' ? (
-                                        `$ ${player[stat.key as keyof PlayerStat]}`
+                                        <span className='cost'>$ {player[stat.key as keyof PlayerStat]}</span>
                                     ) : (
                                         player[stat.key as keyof PlayerStat]
                                     )}
@@ -85,8 +85,8 @@ export default function StatPage() {
                     </div>
                     {myTeam.map(player => (
                         <div key={player.name}>
-                            <span className='player-name'>{player.name}</span>
                             <span className='player-cost'>$ {player.cost}</span>
+                            <span className='player-name'>{player.name}</span>
                             <span onClick={() => removePlayer(player)} className='remove-btn'>
                                 ❌
                             </span>

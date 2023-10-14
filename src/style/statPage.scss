@@ -63,9 +63,10 @@
         .title-wrap {
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
             .title {
                 font-size: 20px;
-                margin-bottom: 20px;
             }
         }
         .submit-btn {
@@ -76,5 +77,11 @@
             border-radius: 5px;
             cursor: pointer;
         }
+    }
+    .cost {
+        background-color: #0984e3;
+        border-radius: 10px;
+        padding: 5px 10px;
+        color: #fff;
     }
 }
