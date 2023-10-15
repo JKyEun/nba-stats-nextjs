@@ -34,9 +34,10 @@ export default function Result() {
         <div className='result-page'>
             <div className='result-wrap'>
                 <div className='team-wrap'>
-                    <div className='total-score'>
-                        {result && result.offense.reduce((acc, item) => acc + item.points, 0) + 20}
+                    <div className='offense-avg'>
+                        {result && result.offense.reduce((acc, item) => acc + item.points, 0).toFixed(1)}
                     </div>
+                    {/* <div className='defense-avg'>{result && result.defense}</div> */}
                     {result &&
                         result.offense.map(el => (
                             <div key={el.name}>
@@ -44,26 +45,6 @@ export default function Result() {
                                 <span className='points'>{el.points}</span>
                             </div>
                         ))}
-                    <div>
-                        <span className='name'>벤치멤버</span>
-                        <span className='points'>20</span>
-                    </div>
-                </div>
-                <div className='team-wrap'>
-                    <div className='total-score'>
-                        {result && result.defense.reduce((acc, item) => acc + item.points, 0) + 20}
-                    </div>
-                    {result &&
-                        result.defense.map(el => (
-                            <div key={el.name}>
-                                <span className='name'>{el.name}</span>
-                                <span className='points'>{el.points}</span>
-                            </div>
-                        ))}
-                    <div>
-                        <span className='name'>벤치멤버</span>
-                        <span className='points'>20</span>
-                    </div>
                 </div>
             </div>
             <div onClick={backToStatPage} className='back-btn'>
