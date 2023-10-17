@@ -33,19 +33,20 @@ export default function Result() {
     return (
         <div className='result-page'>
             <div className='result-wrap'>
-                <div className='team-wrap'>
+                <div className='win-lose'>73승 9패</div>
+                <div className='score-avg'>
                     <div className='offense-avg'>
-                        {result && result.offense.reduce((acc, item) => acc + item.points, 0).toFixed(1)}
+                        {result && result.offense.reduce((acc, item) => acc + item.points, 0).toFixed(1)}점
                     </div>
-                    {/* <div className='defense-avg'>{result && result.defense}</div> */}
-                    {result &&
-                        result.offense.map(el => (
-                            <div key={el.name}>
-                                <span className='name'>{el.name}</span>
-                                <span className='points'>{el.points}</span>
-                            </div>
-                        ))}
+                    <div className='defense-avg'>100점</div>
                 </div>
+                {result &&
+                    result.offense.map(el => (
+                        <div key={el.name} className='player-score'>
+                            <span className='name'>{el.name}</span>
+                            <span className='points'>{el.points}</span>
+                        </div>
+                    ))}
             </div>
             <div onClick={backToStatPage} className='back-btn'>
                 돌아가기
