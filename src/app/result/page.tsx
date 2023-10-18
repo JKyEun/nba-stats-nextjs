@@ -36,9 +36,9 @@ export default function Result() {
                 <div className='win-lose'>73승 9패</div>
                 <div className='score-avg'>
                     <div className='offense-avg'>
-                        {result && result.offense.reduce((acc, item) => acc + item.points, 0).toFixed(1)}점
+                        평균 득점: {result && result.offense.reduce((acc, item) => acc + item.points, 0).toFixed(1)}점
                     </div>
-                    <div className='defense-avg'>100점</div>
+                    <div className='defense-avg'>평균 실점: 100점</div>
                 </div>
                 {result &&
                     result.offense.map(el => (
