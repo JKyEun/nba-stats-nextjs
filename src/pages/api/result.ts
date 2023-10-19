@@ -5,8 +5,17 @@ const POSSESSION_RATE = [0.5, 0.26, 0.12, 0.07, 0.05];
 export default async function result(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
         try {
-            const myTeam = req.body.selectedTeam;
             const playerStatTable: PlayerStat[] = req.body.playerStatTable;
+
+            const myTeam = req.body.selectedTeam;
+            const opponentTeam = [
+                playerStatTable[0],
+                playerStatTable[4],
+                playerStatTable[8],
+                playerStatTable[12],
+                playerStatTable[16]
+            ];
+
             const entireAssistAvg = Number(
                 (playerStatTable.reduce((acc, item) => acc + item.assist, 0) / playerStatTable.length).toFixed(2)
             );
@@ -20,11 +29,19 @@ export default async function result(req: NextApiRequest, res: NextApiResponse) 
             );
 
             const myTeamClass = new Team(myTeam);
-            const teamSpec = {
+            const opponentTeamClass = new Team(opponentTeam);
+
+            const myTeamSpec = {
                 assist: myTeamClass.getAssistAvg(),
                 reboundStealSum: myTeamClass.getRebStlSumAvg(),
                 opponentBlock: entireBlkAvg,
                 sorted: myTeamClass.getPlayerSortByFG()
+            };
+            const opoonentTeamSpec = {
+                assist: opponentTeamClass.getAssistAvg(),
+                reboundStealSum: opponentTeamClass.getRebStlSumAvg(),
+                opponentBlock: entireBlkAvg,
+                sorted: opponentTeamClass.getPlayerSortByFG()
             };
 
             const getPlayerScore = (teamSpec: TeamSpec, team: PlayerStat[]) => {
@@ -47,8 +64,12 @@ export default async function result(req: NextApiRequest, res: NextApiResponse) 
             };
 
             const score = {
-                offense: getPlayerScore(teamSpec, myTeam),
-                defense: []
+                offense: getPlayerScore(myTeamSpec, myTeam),
+                defense: Number(
+                    getPlayerScore(opoonentTeamSpec, opponentTeam)
+                        .reduce((acc, item) => acc + item.points, 0)
+                        .toFixed(1)
+                )
             };
 
             res.status(200).send(score);

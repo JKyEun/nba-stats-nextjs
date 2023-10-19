@@ -30,5 +30,5 @@ type NameAndPoints = {
 
 export type Result = {
     offense: NameAndPoints[];
-    defense: NameAndPoints[];
+    defense: number;
 };
