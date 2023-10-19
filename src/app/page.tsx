@@ -50,53 +50,57 @@ export default function StatPage() {
             {isLoading ? (
                 <Loading />
             ) : (
-                <div className='stats-wrap'>
-                    {statSpec.map(stat => (
-                        <div
-                            key={stat.key}
-                            className={
-                                stat.name === 'NAME' ? 'column name' : stat.name === 'TEAM' ? 'column team' : 'column'
-                            }>
-                            <div className='stat-name'>{stat.name}</div>
-                            {playerStats.map(player => (
-                                <div key={player.name} className='each-player'>
-                                    {stat.name === 'TEAM' ? (
-                                        <>
-                                            <span onClick={() => addPlayer(player)} className='btn team-btn'>
-                                                영입하기
-                                            </span>
-                                        </>
-                                    ) : stat.name === 'COST' ? (
-                                        <span className='cost'>$ {player[stat.key as keyof PlayerStat]}</span>
-                                    ) : (
-                                        player[stat.key as keyof PlayerStat]
-                                    )}
-                                </div>
-                            ))}
+                <div className='page-wrap'>
+                    <div className='stats-wrap'>
+                        {statSpec.map(stat => (
+                            <div
+                                key={stat.key}
+                                className={
+                                    stat.name === 'NAME'
+                                        ? 'column name'
+                                        : stat.name === 'TEAM'
+                                        ? 'column team'
+                                        : 'column'
+                                }>
+                                <div className='stat-name'>{stat.name}</div>
+                                {playerStats.map(player => (
+                                    <div key={player.name} className='each-player'>
+                                        {stat.name === 'TEAM' ? (
+                                            <>
+                                                <span onClick={() => addPlayer(player)} className='btn team-btn'>
+                                                    영입하기
+                                                </span>
+                                            </>
+                                        ) : stat.name === 'COST' ? (
+                                            <span className='cost'>$ {player[stat.key as keyof PlayerStat]}</span>
+                                        ) : (
+                                            player[stat.key as keyof PlayerStat]
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
+                    <div className='team-box'>
+                        <div className='title-wrap'>
+                            <div className='title'>MY TEAM</div>
+                            <div className='cost'>Current Cost: $ {costSum}</div>
                         </div>
-                    ))}
+                        {myTeam.map(player => (
+                            <div key={player.name}>
+                                <span className='player-cost'>$ {player.cost}</span>
+                                <span className='player-name'>{player.name}</span>
+                                <span onClick={() => removePlayer(player)} className='remove-btn'>
+                                    ❌
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                    <div onClick={goResultPage} className='submit-btn'>
+                        제출
+                    </div>
                 </div>
             )}
-            <div className='team-wrap'>
-                <div className='team-box'>
-                    <div className='title-wrap'>
-                        <div className='title'>MY TEAM</div>
-                        <div className='cost'>Current Cost: $ {costSum}</div>
-                    </div>
-                    {myTeam.map(player => (
-                        <div key={player.name}>
-                            <span className='player-cost'>$ {player.cost}</span>
-                            <span className='player-name'>{player.name}</span>
-                            <span onClick={() => removePlayer(player)} className='remove-btn'>
-                                ❌
-                            </span>
-                        </div>
-                    ))}
-                </div>
-                <div onClick={goResultPage} className='submit-btn'>
-                    제출
-                </div>
-            </div>
         </div>
     );
 }

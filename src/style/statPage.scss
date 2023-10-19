@@ -2,47 +2,54 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    .stats-wrap {
-        display: flex;
-        justify-content: flex-start;
-        width: 100%;
-        max-width: 1200px;
-        font-size: 12px;
-        border-bottom: 1px solid black;
-        margin-bottom: 30px;
-        .column {
-            .stat-name {
-                padding: 10px;
-                text-align: center;
-            }
-            .each-player {
-                padding: 10px;
-                text-align: center;
-                border-top: 1px solid black;
-                .btn {
-                    padding: 5px;
-                    border-radius: 5px;
-                    cursor: pointer;
-                }
-                .team-btn {
-                    background-color: #55efc4;
-                }
-            }
-        }
-        .column.name {
-            min-width: 170px;
-        }
-        .column.team {
-            min-width: 100px;
-        }
-    }
-    .team-wrap {
+    width: 100%;
+    overflow: auto;
+    .page-wrap {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        overflow: auto;
         width: 100%;
-        max-width: 1200px;
+        .stats-wrap {
+            display: flex;
+            justify-content: flex-start;
+            width: 100%;
+            overflow: auto;
+            max-width: 1200px;
+            font-size: 12px;
+            border-bottom: 1px solid black;
+            margin-bottom: 30px;
+            .column {
+                .stat-name {
+                    padding: 10px;
+                    text-align: center;
+                }
+                .each-player {
+                    padding: 10px;
+                    text-align: center;
+                    border-top: 1px solid black;
+                    .btn {
+                        padding: 5px;
+                        border-radius: 5px;
+                        cursor: pointer;
+                    }
+                    .team-btn {
+                        background-color: #55efc4;
+                    }
+                }
+            }
+            .column.name {
+                min-width: 170px;
+            }
+            .column.team {
+                min-width: 100px;
+            }
+        }
         .team-boxes {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
             display: flex;
             width: 100%;
             justify-content: space-around;
