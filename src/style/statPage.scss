@@ -3,37 +3,53 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+    height: 100%;
     overflow: auto;
+    background-color: #2d3436;
     .page-wrap {
         display: flex;
         flex-direction: column;
+        align-items: center;
+        margin-top: 50px;
+        padding: 10px;
         overflow: auto;
         width: 100%;
+        max-width: 1200px;
         .stats-wrap {
             display: flex;
-            justify-content: flex-start;
+            justify-content: space-between;
             width: 100%;
+            background-color: #fff;
             overflow: auto;
-            max-width: 1200px;
             font-size: 12px;
-            border-bottom: 1px solid black;
-            margin-bottom: 30px;
+            margin-bottom: 300px;
+            border-radius: 10px;
             .column {
+                width: 100%;
                 .stat-name {
                     padding: 10px;
                     text-align: center;
                 }
                 .each-player {
+                    cursor: pointer;
                     padding: 10px;
                     text-align: center;
                     border-top: 1px solid black;
                     .btn {
                         padding: 5px;
-                        border-radius: 5px;
+                        border-radius: 10px;
                         cursor: pointer;
                     }
                     .team-btn {
-                        background-color: #55efc4;
+                        background-color: #6c5ce7;
+                        padding: 5px 10px;
+                        color: #fff;
+                    }
+                    .cost {
+                        background-color: #6c5ce7;
+                        border-radius: 10px;
+                        padding: 5px 10px;
+                        color: #fff;
                     }
                 }
             }
@@ -43,52 +59,66 @@
             .column.team {
                 min-width: 100px;
             }
-        }
-        .team-boxes {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: 1200px;
-            display: flex;
-            width: 100%;
-            justify-content: space-around;
-        }
-        .remove-btn {
-            margin-left: 5px;
-            background-color: cadetblue;
-            border-radius: 3px;
-            padding: 2px;
-            cursor: pointer;
-        }
-        .team-box {
-            width: 550px;
-            height: 600px;
-            border: 1px solid black;
-            padding: 20px;
-        }
-        .title-wrap {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            .title {
-                font-size: 20px;
+            .column.cost {
+                min-width: 60px;
             }
         }
-        .submit-btn {
-            margin: 30px;
-            background-color: slateblue;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
+        .fixed-area {
+            position: fixed;
+            padding: 10px;
+            background-color: #2d3436;
+            bottom: 0;
+            width: 100%;
+            max-width: 1200px;
+            .team-box {
+                width: 100%;
+                height: 235px;
+                border-radius: 10px;
+                padding: 20px;
+                background-color: #fff;
+                .title-wrap {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 20px;
+                    .title {
+                        font-size: 18px;
+                    }
+                }
+                .player {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 5px;
+                    .player-cost {
+                        text-align: center;
+                        width: 35px;
+                        font-size: 13px;
+                        margin-right: 8px;
+                        background-color: #6c5ce7;
+                        color: #fff;
+                        padding: 5px 10px;
+                        border-radius: 10px;
+                    }
+                    .remove-btn {
+                        position: absolute;
+                        right: 0;
+                        border-radius: 3px;
+                        padding: 2px;
+                        cursor: pointer;
+                    }
+                }
+            }
+            .submit-btn {
+                text-align: center;
+                margin-top: 10px;
+                background-color: slateblue;
+                color: #fff;
+                width: 100%;
+                padding: 10px 20px;
+                border-radius: 10px;
+                cursor: pointer;
+            }
         }
-    }
-    .cost {
-        background-color: #0984e3;
-        border-radius: 10px;
-        padding: 5px 10px;
-        color: #fff;
     }
 }

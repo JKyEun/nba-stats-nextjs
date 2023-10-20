@@ -13,8 +13,7 @@ const statSpec = [
     { name: '3PT%', key: 'pt3Rate' },
     { name: '3PT', key: 'pt3Num' },
     { name: 'FT%', key: 'ftRate' },
-    { name: 'FT', key: 'ftNum' },
-    { name: 'TEAM', key: 'team' }
+    { name: 'FT', key: 'ftNum' }
 ];
 
 export default statSpec;
