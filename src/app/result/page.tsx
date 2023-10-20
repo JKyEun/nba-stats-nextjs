@@ -53,23 +53,31 @@ export default function Result() {
                 <ResultLoading loadingTime={loadingTime} />
             ) : (
                 <div className='result-wrap'>
-                    <div className='win-lose'>73승 9패</div>
-                    <div className='score-avg'>
-                        <div className='offense-avg'>
-                            평균 득점: {result && result.offense.reduce((acc, item) => acc + item.points, 0).toFixed(1)}
-                            점
-                        </div>
-                        <div className='defense-avg'>평균 실점: {result && result.defense}</div>
+                    <div className='win-lose'>
+                        <div className='title'>Result</div>
+                        <div className='result'>73승 9패</div>
                     </div>
-                    {result &&
-                        result.offense.map(el => (
-                            <div key={el.name} className='player-score'>
-                                <span className='name'>{el.name}</span>
-                                <span className='points'>{el.points}</span>
-                            </div>
-                        ))}
-                    <div onClick={backToStatPage} className='back-btn'>
-                        돌아가기
+                    <div className='offense-avg'>
+                        <div className='title'>팀 평균 득점</div>
+                        <div className='result'>{result && result.offenseAvg}점</div>
+                    </div>
+                    <div className='defense-avg'>
+                        <div className='title'>팀 평균 실점</div>
+                        <div className='result'>{result && result.defenseAvg}점</div>
+                    </div>
+                    <div className='player-scores'>
+                        {result &&
+                            result.playerScores.map(el => (
+                                <div key={el.name} className='player-score'>
+                                    <span className='name'>{el.name}</span>
+                                    <span className='points'>{el.points}</span>
+                                </div>
+                            ))}
+                    </div>
+                    <div className='fixed-area'>
+                        <div onClick={backToStatPage} className='back-btn'>
+                            돌아가기
+                        </div>
                     </div>
                 </div>
             )}

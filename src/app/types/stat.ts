@@ -29,6 +29,7 @@ type NameAndPoints = {
 };
 
 export type Result = {
-    offense: NameAndPoints[];
-    defense: number;
+    playerScores: NameAndPoints[];
+    offenseAvg: number;
+    defenseAvg: number;
 };

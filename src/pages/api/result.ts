@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { PlayerStat, TeamSpec } from '../../app/types/stat';
 const POSSESSION_RATE = [0.5, 0.26, 0.12, 0.07, 0.05];
+const BENCH_PTS = 20;
 
 export default async function result(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
@@ -64,8 +65,14 @@ export default async function result(req: NextApiRequest, res: NextApiResponse) 
             };
 
             const score = {
-                offense: getPlayerScore(myTeamSpec, myTeam),
-                defense: Number(
+                playerScores: getPlayerScore(myTeamSpec, myTeam),
+                offenseAvg:
+                    Number(
+                        getPlayerScore(myTeamSpec, myTeam)
+                            .reduce((acc, item) => acc + item.points, 0)
+                            .toFixed(1)
+                    ) + BENCH_PTS,
+                defenseAvg: Number(
                     getPlayerScore(opoonentTeamSpec, opponentTeam)
                         .reduce((acc, item) => acc + item.points, 0)
                         .toFixed(1)
