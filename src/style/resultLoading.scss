@@ -1,0 +1,43 @@
+.result-loading-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 600px;
+    padding: 10px;
+    .game {
+        color: #fff;
+        font-size: 18px;
+        font-weight: 600;
+    }
+    .back-bar {
+        margin-top: 20px;
+        width: 100%;
+        height: 30px;
+        position: relative;
+        background-color: #fff;
+        .front-bar {
+            position: absolute;
+            top: 0;
+            background-color: #6c5ce7;
+            animation: fill 8.2s 0s linear;
+            height: 100%;
+            width: 100%;
+        }
+    }
+    .desc {
+        color: #fff;
+        margin-top: 20px;
+        text-align: center;
+    }
+}
+
+@keyframes fill {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
