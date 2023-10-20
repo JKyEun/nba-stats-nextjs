@@ -1,47 +1,64 @@
+@import 'mixin';
+
 .result-page {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: calc(100vh - 70px);
+    padding: 20px;
     .result-wrap {
         display: flex;
         flex-direction: column;
         width: 100%;
         max-width: 1200px;
-        align-items: center;
+        color: #fff;
         margin: 20px;
+        font-size: 40px;
         .win-lose {
-            font-size: 40px;
-            background-color: orange;
             margin-bottom: 20px;
+            .title {
+                font-size: 30px;
+            }
         }
-        .score-avg {
+        .offense-avg {
+            margin-bottom: 20px;
+            margin-right: 3vw;
+            .title {
+                font-size: 30px;
+            }
+        }
+        .defense-avg {
+            margin-bottom: 20px;
+            .title {
+                font-size: 30px;
+            }
+        }
+        .player-scores {
             display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-            .offense-avg {
-                font-size: 30px;
-                margin-right: 3vw;
-            }
-            .defense-avg {
+            flex-direction: column;
+            .title {
                 font-size: 30px;
             }
-        }
-        .name {
-            margin-right: 10px;
-            font-size: 20px;
-        }
-        .points {
-            font-size: 20px;
+            .player-score {
+                .name {
+                    margin-right: 10px;
+                    font-size: 20px;
+                }
+                .points {
+                    font-size: 20px;
+                }
+            }
         }
     }
-    .back-btn {
-        margin: 30px;
-        background-color: #6c5ce7;
-        color: #fff;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
+    .fixed-area {
+        position: fixed;
+        bottom: 0;
+        padding: 10px;
+        width: 100%;
+        max-width: 1200px;
+        .back-btn {
+            @include btn-style;
+        }
     }
 }

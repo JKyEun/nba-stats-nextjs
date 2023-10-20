@@ -52,34 +52,37 @@ export default function Result() {
             {isLoading ? (
                 <ResultLoading loadingTime={loadingTime} />
             ) : (
-                <div className='result-wrap'>
-                    <div className='win-lose'>
-                        <div className='title'>Result</div>
-                        <div className='result'>73승 9패</div>
-                    </div>
-                    <div className='offense-avg'>
-                        <div className='title'>팀 평균 득점</div>
-                        <div className='result'>{result && result.offenseAvg}점</div>
-                    </div>
-                    <div className='defense-avg'>
-                        <div className='title'>팀 평균 실점</div>
-                        <div className='result'>{result && result.defenseAvg}점</div>
-                    </div>
-                    <div className='player-scores'>
-                        {result &&
-                            result.playerScores.map(el => (
-                                <div key={el.name} className='player-score'>
-                                    <span className='name'>{el.name}</span>
-                                    <span className='points'>{el.points}</span>
-                                </div>
-                            ))}
+                <>
+                    <div className='result-wrap'>
+                        <div className='win-lose'>
+                            <div className='title'>시즌 성적</div>
+                            <div className='result'>73승 9패</div>
+                        </div>
+                        <div className='offense-avg'>
+                            <div className='title'>팀 평균 득점</div>
+                            <div className='result'>{result && result.offenseAvg}점</div>
+                        </div>
+                        <div className='defense-avg'>
+                            <div className='title'>팀 평균 실점</div>
+                            <div className='result'>{result && result.defenseAvg}점</div>
+                        </div>
+                        <div className='player-scores'>
+                            <div className='title'>선수별 평균득점</div>
+                            {result &&
+                                result.playerScores.map(el => (
+                                    <div key={el.name} className='player-score'>
+                                        <span className='name'>{el.name}</span>
+                                        <span className='points'>{el.points}점</span>
+                                    </div>
+                                ))}
+                        </div>
                     </div>
                     <div className='fixed-area'>
                         <div onClick={backToStatPage} className='back-btn'>
-                            돌아가기
+                            다시하기
                         </div>
                     </div>
-                </div>
+                </>
             )}
         </div>
     );

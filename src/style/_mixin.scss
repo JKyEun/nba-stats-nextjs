@@ -1,0 +1,10 @@
+@mixin btn-style {
+    text-align: center;
+    margin-top: 10px;
+    background-color: slateblue;
+    color: #fff;
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
