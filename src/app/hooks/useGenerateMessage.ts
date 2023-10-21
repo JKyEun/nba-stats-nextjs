@@ -25,7 +25,7 @@ export default function useGenerateMessage(setMsgArr: Dispatch<SetStateAction<st
                 '개막전 경기에서 승리를 따냈습니다!',
                 '우리 팀이 3연패를 기록합니다.',
                 `이번 시즌 올스타전 MVP는 ${randomPlayer} 선수!`,
-                '오늘 승리로 플래이오프 참가가 확정되었습니다!',
+                '오늘 승리로 플레이오프 참가가 확정되었습니다!',
                 `${pointLeaderPlayer} 선수가 시즌 MVP를 차지합니다!`
             ],
             [

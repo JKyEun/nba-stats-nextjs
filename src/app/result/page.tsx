@@ -56,7 +56,9 @@ export default function Result() {
                     <div className='result-wrap'>
                         <div className='win-lose'>
                             <div className='title'>시즌 성적</div>
-                            <div className='result'>73승 9패</div>
+                            <div className='result'>
+                                {result && result.result[0]}승 {result && result.result[1]}패
+                            </div>
                         </div>
                         <div className='offense-avg'>
                             <div className='title'>팀 평균 득점</div>

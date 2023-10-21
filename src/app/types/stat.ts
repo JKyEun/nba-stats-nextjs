@@ -32,4 +32,5 @@ export type Result = {
     playerScores: NameAndPoints[];
     offenseAvg: number;
     defenseAvg: number;
+    result: number[];
 };

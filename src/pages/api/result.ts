@@ -10,11 +10,11 @@ export default async function result(req: NextApiRequest, res: NextApiResponse) 
 
             const myTeam = req.body.selectedTeam;
             const opponentTeam = [
-                playerStatTable[0],
-                playerStatTable[4],
-                playerStatTable[8],
-                playerStatTable[12],
-                playerStatTable[16]
+                playerStatTable[3],
+                playerStatTable[7],
+                playerStatTable[11],
+                playerStatTable[15],
+                playerStatTable[19]
             ];
 
             const entireAssistAvg = Number(
@@ -64,19 +64,25 @@ export default async function result(req: NextApiRequest, res: NextApiResponse) 
                 return score;
             };
 
-            const score = {
-                playerScores: getPlayerScore(myTeamSpec, myTeam),
-                offenseAvg:
-                    Number(
-                        getPlayerScore(myTeamSpec, myTeam)
-                            .reduce((acc, item) => acc + item.points, 0)
-                            .toFixed(1)
-                    ) + BENCH_PTS,
-                defenseAvg: Number(
-                    getPlayerScore(opoonentTeamSpec, opponentTeam)
+            const offenseAvg =
+                Number(
+                    getPlayerScore(myTeamSpec, myTeam)
                         .reduce((acc, item) => acc + item.points, 0)
                         .toFixed(1)
-                )
+                ) + BENCH_PTS;
+            const defenseAvg = Number(
+                getPlayerScore(opoonentTeamSpec, opponentTeam)
+                    .reduce((acc, item) => acc + item.points, 0)
+                    .toFixed(1)
+            );
+            let winResult = 45 + Math.round(offenseAvg - defenseAvg);
+            winResult = winResult > 82 ? 82 : winResult;
+
+            const score = {
+                offenseAvg,
+                defenseAvg,
+                playerScores: getPlayerScore(myTeamSpec, myTeam),
+                result: [winResult, 82 - winResult]
             };
 
             res.status(200).send(score);
