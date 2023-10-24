@@ -12,6 +12,10 @@ export default function Navbar() {
         router.push('/');
     };
 
+    const goHelpPage = () => {
+        router.push('/help');
+    };
+
     return (
         <div className='nav-bar'>
             <div className='nav-bar-container'>
@@ -22,7 +26,7 @@ export default function Navbar() {
                 </div>
                 <div className='right-side'>
                     <div className='item credit'>Credit: 1</div>
-                    <div className='item help'>
+                    <div onClick={goHelpPage} className='item help'>
                         <Image src='/help.svg' alt='도움말' width={20} height={20} />
                     </div>
                     <div className='item ranking'>

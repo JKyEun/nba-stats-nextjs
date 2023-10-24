@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import '../style/reset.scss';
 import RecoilRootWrapper from './RecoilRootWrapper';
-import Navbar from './Navbar';
+import LayoutProvider from './LayoutProvider';
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -13,8 +13,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <html lang='en'>
             <body>
                 <RecoilRootWrapper>
-                    <Navbar />
-                    {children}
+                    <LayoutProvider>{children}</LayoutProvider>
                 </RecoilRootWrapper>
             </body>
         </html>
