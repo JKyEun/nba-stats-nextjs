@@ -16,6 +16,10 @@ export default function Navbar() {
         router.push('/help');
     };
 
+    const goRankingPage = () => {
+        router.push('/ranking');
+    };
+
     return (
         <div className='nav-bar'>
             <div className='nav-bar-container'>
@@ -29,7 +33,7 @@ export default function Navbar() {
                     <div onClick={goHelpPage} className='item help'>
                         <Image src='/help.svg' alt='도움말' width={20} height={20} />
                     </div>
-                    <div className='item ranking'>
+                    <div onClick={goRankingPage} className='item ranking'>
                         <Image src='/ranking.svg' alt='랭킹' width={20} height={20} />
                     </div>
                     <div className='item login'>
