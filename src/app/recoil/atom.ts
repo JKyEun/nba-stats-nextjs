@@ -9,3 +9,8 @@ export const playerStatTable = atom({
     key: 'playerStatTable',
     default: [] as any
 });
+
+export const isLoginState = atom({
+    key: 'isLoginState',
+    default: false
+});
