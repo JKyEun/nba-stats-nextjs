@@ -3,42 +3,43 @@
 import Image from 'next/image';
 import React from 'react';
 import '../style/navbar.scss';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { useRecoilState } from 'recoil';
+import { isLoginState } from './recoil/atom';
 
 export default function Navbar() {
-    const router = useRouter();
+    const [isLogin, setIsLogin] = useRecoilState(isLoginState);
 
-    const goStatPage = () => {
-        router.push('/');
-    };
-
-    const goHelpPage = () => {
-        router.push('/help');
-    };
-
-    const goRankingPage = () => {
-        router.push('/ranking');
+    const logout = () => {
+        setIsLogin(false);
+        window.localStorage.removeItem('UID');
     };
 
     return (
         <div className='nav-bar'>
             <div className='nav-bar-container'>
                 <div className='left-side'>
-                    <div onClick={goStatPage} className='logo'>
+                    <Link href='/' className='logo'>
                         NBA-Simulator
-                    </div>
+                    </Link>
                 </div>
                 <div className='right-side'>
                     <div className='item credit'>Credit: 1</div>
-                    <div onClick={goHelpPage} className='item help'>
+                    <Link href='/help' className='item help'>
                         <Image src='/help.svg' alt='도움말' width={20} height={20} />
-                    </div>
-                    <div onClick={goRankingPage} className='item ranking'>
+                    </Link>
+                    <Link href='/ranking' className='item ranking'>
                         <Image src='/ranking.svg' alt='랭킹' width={20} height={20} />
-                    </div>
-                    <div className='item login'>
-                        <Image src='/login.svg' alt='랭킹' width={20} height={20} />
-                    </div>
+                    </Link>
+                    {isLogin ? (
+                        <div onClick={logout} className='item login'>
+                            <Image src='/logout.svg' alt='랭킹' width={20} height={20} />
+                        </div>
+                    ) : (
+                        <Link href='/login' className='item login'>
+                            <Image src='/login.svg' alt='랭킹' width={20} height={20} />
+                        </Link>
+                    )}
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 import { connectDB } from '@/app/util/database';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-export default async function result(req: NextApiRequest, res: NextApiResponse) {
+export default async function ranking(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'GET') {
         try {
             const client = await connectDB;

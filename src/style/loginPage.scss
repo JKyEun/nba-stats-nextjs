@@ -1,0 +1,25 @@
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    .kakao-login-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(251, 229, 77);
+        font-weight: 800;
+        border-radius: 15px;
+        font-size: 18px;
+        line-height: 24px;
+        width: 80%;
+        max-width: 441px;
+        height: 54px;
+        cursor: pointer;
+        span {
+            margin-left: 7px;
+            color: rgb(46, 26, 26);
+        }
+    }
+}
