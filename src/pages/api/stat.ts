@@ -6,7 +6,7 @@ import { PlayerStat } from '../../app/types/stat';
 export default async function stat(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'GET') {
         try {
-            const url = 'https://sports.news.naver.com/basketball/record/index.nhn?category=nba&year=2023';
+            const url = 'https://sports.news.naver.com/basketball/record/index.nhn?category=nba&year=2024';
             const stat = await axios.get(url);
 
             const $ = cheerio.load(stat.data);
