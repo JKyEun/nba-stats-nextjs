@@ -82,7 +82,7 @@ export default async function result(req: NextApiRequest, res: NextApiResponse) 
                 offenseAvg,
                 defenseAvg,
                 playerScores: getPlayerScore(myTeamSpec, myTeam),
-                result: [winResult, 82 - winResult]
+                result: winResult
             };
 
             res.status(200).send(score);

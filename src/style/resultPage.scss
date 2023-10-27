@@ -52,11 +52,16 @@
         }
     }
     .fixed-area {
+        display: flex;
         position: fixed;
         bottom: 0;
         padding: 10px;
         width: 100%;
         max-width: 1200px;
+        .register-btn {
+            @include btn-style;
+            margin-right: 10px;
+        }
         .back-btn {
             @include btn-style;
         }
