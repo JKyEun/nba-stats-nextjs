@@ -8,6 +8,7 @@ import { getGameResult } from '../apis/stat';
 import { Result } from '../types/stat';
 import '../../style/resultPage.scss';
 import ResultLoading from './ResultLoading';
+import { setRanking } from '../apis/ranking';
 
 export default function Result() {
     const router = useRouter();
@@ -24,6 +25,11 @@ export default function Result() {
 
     const backToStatPage = () => {
         router.push('/');
+    };
+
+    const callSetRanking = () => {
+        if (!result) return;
+        setRanking(result);
     };
 
     useEffect(() => {
@@ -57,7 +63,7 @@ export default function Result() {
                         <div className='win-lose'>
                             <div className='title'>시즌 성적</div>
                             <div className='result'>
-                                {result && result.result[0]}승 {result && result.result[1]}패
+                                {result && result.result}승 {result && 82 - result.result}패
                             </div>
                         </div>
                         <div className='offense-avg'>
@@ -80,6 +86,9 @@ export default function Result() {
                         </div>
                     </div>
                     <div className='fixed-area'>
+                        <div onClick={callSetRanking} className='register-btn'>
+                            랭킹등록
+                        </div>
                         <div onClick={backToStatPage} className='back-btn'>
                             다시하기
                         </div>
