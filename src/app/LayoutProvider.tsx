@@ -6,7 +6,7 @@ import Navbar from './Navbar';
 import { useSetRecoilState } from 'recoil';
 import { isLoginState } from './recoil/atom';
 
-const excludeNavbarPage = ['/help', '/login'];
+const excludeNavbarPage = ['/help', '/login', '/ranking'];
 
 export default function LayoutProvider({ children }: { children: React.ReactNode }) {
     const pathname = usePathname() || '';

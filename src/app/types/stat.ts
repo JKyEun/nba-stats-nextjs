@@ -23,7 +23,7 @@ export type TeamSpec = {
     sorted: PlayerStat[];
 };
 
-type NameAndPoints = {
+export type NameAndPoints = {
     name: string;
     points: number;
 };
