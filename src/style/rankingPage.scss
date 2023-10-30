@@ -1,0 +1,71 @@
+.ranking-page {
+    display: flex;
+    justify-content: center;
+    .ranking-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        width: 100%;
+        max-width: 1200px;
+    }
+    .title {
+        color: #fff;
+        margin-top: 30px;
+    }
+    .exit {
+        position: absolute;
+        left: 20px;
+        top: 20px;
+    }
+    .table-wrap {
+        background-color: #fff;
+        margin-top: 20px;
+        width: 100%;
+        border-radius: 10px;
+        text-align: center;
+        .table-head {
+            display: flex;
+            background-color: #ddd;
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
+        }
+        .table-row {
+            display: flex;
+            border-top: 1px solid black;
+        }
+        .table-row.gold {
+            color: #d6b534;
+        }
+        .table-row.silver {
+            color: #c0c0c0;
+        }
+        .table-row.bronze {
+            color: #b08d57;
+        }
+        .rank,
+        .nickname,
+        .result,
+        .offense,
+        .defense {
+            border-right: 1px solid black;
+            padding: 5px 0px;
+        }
+        .rank {
+            width: 13%;
+        }
+        .nickname {
+            width: 20%;
+        }
+        .result {
+            width: 27%;
+        }
+        .offense {
+            width: 20%;
+        }
+        .defense {
+            width: 20%;
+            border-right: none;
+        }
+    }
+}
