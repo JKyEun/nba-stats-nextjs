@@ -8,7 +8,7 @@ import { getGameResult } from '../apis/stat';
 import { Result } from '../types/stat';
 import '../../style/resultPage.scss';
 import ResultLoading from './ResultLoading';
-import { setRanking } from '../apis/ranking';
+import ModalNicknameInput from './ModalNicknameInput';
 
 export default function Result() {
     const router = useRouter();
@@ -17,6 +17,7 @@ export default function Result() {
     const [result, setResult] = useState<Result>();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [loadingTime, setLoadingTime] = useState<number>(1);
+    const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
     const callGetGameResult = async () => {
         const res = await getGameResult(teamData, playerStats);
@@ -29,7 +30,7 @@ export default function Result() {
 
     const callSetRanking = () => {
         if (!result) return;
-        setRanking(result);
+        setModalOpen(true);
     };
 
     useEffect(() => {
@@ -95,6 +96,7 @@ export default function Result() {
                     </div>
                 </>
             )}
+            <ModalNicknameInput isModalOpen={isModalOpen} setModalOpen={setModalOpen} result={result} />
         </div>
     );
 }
