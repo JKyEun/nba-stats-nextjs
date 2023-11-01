@@ -48,7 +48,7 @@ export default function Ranking() {
                                 (idx === 0 ? 'gold' : idx === 1 ? 'silver' : idx === 2 ? 'bronze' : '')
                             }>
                             <div className='rank'>{idx + 1}</div>
-                            <div className='nickname'>닉네임</div>
+                            <div className='nickname'>{el.nickname}</div>
                             <div className='result'>
                                 {el.result}승 {82 - el.result}패
                             </div>

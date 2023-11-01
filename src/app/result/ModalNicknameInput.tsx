@@ -22,7 +22,9 @@ export default function ModalNicknameInput({
 
     const onConfirmClick = async () => {
         if (!result) return;
-        await setRanking(result);
+        await setRanking(result, nicknameInput);
+        setModalOpen(false);
+        alert('랭킹이 등록되었습니다.');
     };
 
     useOutsideClick(isModalOpen, modalRef, setModalOpen);
