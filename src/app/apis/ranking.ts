@@ -10,9 +10,9 @@ export const getRanking = async () => {
     }
 };
 
-export const setRanking = async (record: Result) => {
+export const setRanking = async (record: Result, nickname: string) => {
     try {
-        const payload = { ...record };
+        const payload = { ...record, nickname };
         const res = await api.post('/ranking/set', payload);
         return res.data;
     } catch (err) {

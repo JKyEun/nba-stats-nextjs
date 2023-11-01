@@ -6,4 +6,5 @@ export type EachRank = {
     defenseAvg: number;
     playerScores: NameAndPoints[];
     result: number;
+    nickname: string;
 };
