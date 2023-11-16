@@ -11,10 +11,10 @@ const excludeNavbarPage = ['/help', '/login', '/ranking'];
 export default function LayoutProvider({ children }: { children: React.ReactNode }) {
     const pathname = usePathname() || '';
     const setIsLogin = useSetRecoilState(isLoginState);
-    const UID = window.localStorage.getItem('UID');
 
     useEffect(() => {
-        if (UID) setIsLogin(true);
+        const id = window.localStorage.getItem('ID');
+        if (id) setIsLogin(true);
     }, []);
 
     return (
