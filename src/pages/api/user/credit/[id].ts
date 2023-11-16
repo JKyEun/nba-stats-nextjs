@@ -1,30 +1,31 @@
 import { connectDB } from '@/app/util/database';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-export default async function kakaoLogin(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method === 'POST') {
+export default async function Credit(req: NextApiRequest, res: NextApiResponse) {
+    const {
+        method,
+        query: { id }
+    } = req;
+
+    console.log('di');
+
+    if (method === 'GET') {
         try {
             const client = await connectDB;
             const userDB = client.db('nba-simulator').collection('user');
 
-            const { id } = req.body;
             const user = await userDB.findOne({ id });
 
             if (user) {
-                res.status(200).send(user.id);
+                res.status(200).json({ credits: user.credit });
             } else {
-                const newUser = {
-                    id,
-                    password: '0000',
-                    credit: 1
-                };
-                await userDB.insertOne(newUser);
-
-                res.status(201).send(newUser.id);
+                res.status(404).send('User not found');
             }
         } catch (err) {
             console.error(err);
             res.status(500).send('Error 500.');
         }
+    } else {
+        res.status(405).send('Method Not Allowed');
     }
 }

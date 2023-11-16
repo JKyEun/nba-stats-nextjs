@@ -48,7 +48,7 @@ export default function KakaoRedirectHandler() {
                     const registerResponse = await kakaoLogin(userLoginInfo);
 
                     if (registerResponse?.status === 200 || registerResponse?.status === 201) {
-                        localStorage.setItem('UID', registerResponse?.data);
+                        localStorage.setItem('ID', registerResponse?.data);
                         router.push('/');
                         setIsLogin(true);
                     } else {

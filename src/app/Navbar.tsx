@@ -1,19 +1,32 @@
 'use client';
 
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../style/navbar.scss';
 import Link from 'next/link';
 import { useRecoilState } from 'recoil';
-import { isLoginState } from './recoil/atom';
+import { creditState, isLoginState } from './recoil/atom';
+import { getUserCredit } from './apis/user';
 
 export default function Navbar() {
     const [isLogin, setIsLogin] = useRecoilState(isLoginState);
+    const [credit, setCredit] = useRecoilState(creditState);
 
     const logout = () => {
         setIsLogin(false);
-        window.localStorage.removeItem('UID');
+        window.localStorage.removeItem('ID');
     };
+
+    useEffect(() => {
+        const fetchCredit = async () => {
+            const id = window.localStorage.getItem('ID');
+            if (id) {
+                const res = await getUserCredit(id);
+                setCredit(res?.data.credits);
+            }
+        };
+        fetchCredit();
+    }, [isLogin]);
 
     return (
         <div className='nav-bar'>
@@ -24,7 +37,7 @@ export default function Navbar() {
                     </Link>
                 </div>
                 <div className='right-side'>
-                    <div className='item credit'>Credit: 1</div>
+                    {isLogin && <div className='item credit'>Credit: {credit}</div>}
                     <Link href='/help' className='item help'>
                         <Image src='/help.svg' alt='도움말' width={20} height={20} />
                     </Link>
