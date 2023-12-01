@@ -20,7 +20,7 @@ export const getUserCredit = async (id: string) => {
 
 export const decreaseUserCredit = async (id: number) => {
     try {
-        const res = await api.post('/user/credit', id);
+        const res = await api.post('/user/credit', { id });
         return res;
     } catch (err) {
         console.error(err);
