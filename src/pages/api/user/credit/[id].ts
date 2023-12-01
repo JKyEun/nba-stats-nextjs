@@ -7,8 +7,6 @@ export default async function Credit(req: NextApiRequest, res: NextApiResponse) 
         query: { id }
     } = req;
 
-    console.log('di');
-
     if (method === 'GET') {
         try {
             const client = await connectDB;
