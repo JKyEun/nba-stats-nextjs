@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { isLoginState, playerStatTable, selectedTeam } from '../recoil/atom';
+import { creditState, isLoginState, playerStatTable, selectedTeam } from '../recoil/atom';
 import { useRouter } from 'next/navigation';
 import { getGameResult } from '../apis/stat';
 import { Result } from '../types/stat';
@@ -15,6 +15,7 @@ export default function Result() {
     const teamData = useRecoilValue(selectedTeam);
     const playerStats = useRecoilValue(playerStatTable);
     const isLogin = useRecoilValue(isLoginState);
+    const credit = useRecoilValue(creditState);
     const [result, setResult] = useState<Result>();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [loadingTime, setLoadingTime] = useState<number>(1);
@@ -32,6 +33,7 @@ export default function Result() {
     const callSetRanking = () => {
         if (!result) return;
         if (!isLogin) return alert('로그인이 필요한 서비스입니다.');
+        if (credit < 1) return alert('보유한 Credit이 없습니다.');
         setModalOpen(true);
     };
 
