@@ -48,58 +48,63 @@ export default function StatPage() {
 
     return (
         <div className='stat-page'>
-            {isLoading ? (
-                <Loading />
-            ) : (
-                <div className='page-wrap'>
-                    <div className='stats-wrap'>
-                        {statSpec.map(stat => (
-                            <div
-                                key={stat.key}
-                                className={
-                                    stat.name === 'NAME'
-                                        ? 'column name'
-                                        : stat.name === 'TEAM'
-                                        ? 'column team'
-                                        : stat.name === 'COST'
-                                        ? 'column cost'
-                                        : 'column'
-                                }>
-                                <div className='stat-name'>{stat.name}</div>
-                                {playerStats.map(player => (
-                                    <div key={player.name} onClick={() => addPlayer(player)} className='each-player'>
-                                        {stat.name === 'COST' ? (
-                                            <span className='cost'>${player[stat.key as keyof PlayerStat]}</span>
-                                        ) : (
-                                            player[stat.key as keyof PlayerStat]
-                                        )}
-                                    </div>
-                                ))}
-                            </div>
-                        ))}
-                    </div>
-                    <div className='fixed-area'>
-                        <div className='team-box'>
-                            <div className='title-wrap'>
-                                <div className='title'>My Team</div>
-                                <div className='cost'>Current Cost: ${costSum}</div>
-                            </div>
-                            {myTeam.map(player => (
-                                <div key={player.name} className='player'>
-                                    <span className='player-cost'>${player.cost}</span>
-                                    <span className='player-name'>{player.name}</span>
-                                    <span onClick={() => removePlayer(player)} className='remove-btn'>
-                                        <Image src='/close.svg' width={20} height={20} alt='닫기' />
-                                    </span>
+            <div className='page-wrap'>
+                {isLoading ? (
+                    <Loading />
+                ) : (
+                    <>
+                        <div className='stats-wrap'>
+                            {statSpec.map(stat => (
+                                <div
+                                    key={stat.key}
+                                    className={
+                                        stat.name === 'NAME'
+                                            ? 'column name'
+                                            : stat.name === 'TEAM'
+                                            ? 'column team'
+                                            : stat.name === 'COST'
+                                            ? 'column cost'
+                                            : 'column'
+                                    }>
+                                    <div className='stat-name'>{stat.name}</div>
+                                    {playerStats.map(player => (
+                                        <div
+                                            key={player.name}
+                                            onClick={() => addPlayer(player)}
+                                            className='each-player'>
+                                            {stat.name === 'COST' ? (
+                                                <span className='cost'>${player[stat.key as keyof PlayerStat]}</span>
+                                            ) : (
+                                                player[stat.key as keyof PlayerStat]
+                                            )}
+                                        </div>
+                                    ))}
                                 </div>
                             ))}
                         </div>
-                        <div onClick={goResultPage} className='submit-btn'>
-                            제출
+                        <div className='fixed-area'>
+                            <div className='team-box'>
+                                <div className='title-wrap'>
+                                    <div className='title'>My Team</div>
+                                    <div className='cost'>Current Cost: ${costSum}</div>
+                                </div>
+                                {myTeam.map(player => (
+                                    <div key={player.name} className='player'>
+                                        <span className='player-cost'>${player.cost}</span>
+                                        <span className='player-name'>{player.name}</span>
+                                        <span onClick={() => removePlayer(player)} className='remove-btn'>
+                                            <Image src='/close.svg' width={20} height={20} alt='닫기' />
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
+                            <div onClick={goResultPage} className='submit-btn'>
+                                제출
+                            </div>
                         </div>
-                    </div>
-                </div>
-            )}
+                    </>
+                )}
+            </div>
         </div>
     );
 }
