@@ -6,14 +6,15 @@
     align-items: center;
     justify-content: center;
     height: calc(100vh - 70px);
-    padding: 20px;
+    padding: 0 20px;
     .result-wrap {
         display: flex;
         flex-direction: column;
         width: 100%;
+        padding-top: 70px;
+        overflow-y: auto;
         max-width: 1200px;
         color: #fff;
-        margin: 20px;
         font-size: 40px;
         .win-lose {
             margin-bottom: 20px;
@@ -55,7 +56,7 @@
         display: flex;
         position: fixed;
         bottom: 0;
-        padding: 10px;
+        padding: 0 10px 10px 10px;
         width: 100%;
         max-width: 1200px;
         .register-btn {

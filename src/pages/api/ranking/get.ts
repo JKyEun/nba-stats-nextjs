@@ -6,7 +6,9 @@ export default async function get(req: NextApiRequest, res: NextApiResponse) {
         try {
             const client = await connectDB;
             const rankingDB = client.db('nba-simulator').collection('ranking');
-            const ranking = await rankingDB.find({}).sort({ result: -1, offenseAvg: -1, deffenseAvg: 1 }).toArray();
+            const ranking = (
+                await rankingDB.find({}).sort({ result: -1, offenseAvg: -1, deffenseAvg: 1 }).toArray()
+            ).slice(0, 20);
             res.status(200).json(ranking);
         } catch (err) {
             console.error(err);

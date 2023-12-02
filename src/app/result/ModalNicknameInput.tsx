@@ -19,7 +19,6 @@ export default function ModalNicknameInput({
     const [nicknameInput, setNicknameInput] = useState<string>('');
     const modalRef = useRef<HTMLDivElement>(null);
     const id = window.localStorage.getItem('ID');
-    console.log(id);
 
     const onNicknameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         setNicknameInput(e.target.value);

@@ -2,19 +2,21 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { isLoginState, playerStatTable, selectedTeam } from '../recoil/atom';
+import { creditState, isLoginState, playerStatTable, selectedTeam } from '../recoil/atom';
 import { useRouter } from 'next/navigation';
 import { getGameResult } from '../apis/stat';
 import { Result } from '../types/stat';
 import '../../style/resultPage.scss';
 import ResultLoading from './ResultLoading';
 import ModalNicknameInput from './ModalNicknameInput';
+import { getRanking } from '../apis/ranking';
 
 export default function Result() {
     const router = useRouter();
     const teamData = useRecoilValue(selectedTeam);
     const playerStats = useRecoilValue(playerStatTable);
     const isLogin = useRecoilValue(isLoginState);
+    const credit = useRecoilValue(creditState);
     const [result, setResult] = useState<Result>();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [loadingTime, setLoadingTime] = useState<number>(1);
@@ -29,9 +31,42 @@ export default function Result() {
         router.push('/');
     };
 
-    const callSetRanking = () => {
+    const isInRanking = async () => {
+        if (!result) return false;
+        const ranking = await getRanking();
+        if (ranking.length < 20) return true;
+
+        const lastRecord = ranking[ranking.length - 1];
+        const userWinResult = result?.result || 0;
+        const userOffenseAvg = result?.offenseAvg || 0;
+        const userDefenseAvg = result?.defenseAvg || Infinity;
+
+        if (lastRecord.result > userWinResult) {
+            return false;
+        } else if (lastRecord.result === userWinResult) {
+            if (lastRecord.offenseAvg > userOffenseAvg) {
+                return false;
+            } else if (lastRecord.offenseAvg === userOffenseAvg) {
+                if (lastRecord.defenseAvg < userDefenseAvg) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    };
+
+    isInRanking();
+
+    const callSetRanking = async () => {
         if (!result) return;
         if (!isLogin) return alert('로그인이 필요한 서비스입니다.');
+        if (credit < 1) return alert('보유한 Credit이 없습니다.');
+        if (await isInRanking()) return alert('순위권 안에 들지 못했습니다.');
         setModalOpen(true);
     };
 
