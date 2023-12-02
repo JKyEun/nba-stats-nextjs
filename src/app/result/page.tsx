@@ -9,6 +9,7 @@ import { Result } from '../types/stat';
 import '../../style/resultPage.scss';
 import ResultLoading from './ResultLoading';
 import ModalNicknameInput from './ModalNicknameInput';
+import { getRanking } from '../apis/ranking';
 
 export default function Result() {
     const router = useRouter();
@@ -30,10 +31,42 @@ export default function Result() {
         router.push('/');
     };
 
-    const callSetRanking = () => {
+    const isInRanking = async () => {
+        if (!result) return false;
+        const ranking = await getRanking();
+        if (ranking.length < 20) return true;
+
+        const lastRecord = ranking[ranking.length - 1];
+        const userWinResult = result?.result || 0;
+        const userOffenseAvg = result?.offenseAvg || 0;
+        const userDefenseAvg = result?.defenseAvg || Infinity;
+
+        if (lastRecord.result > userWinResult) {
+            return false;
+        } else if (lastRecord.result === userWinResult) {
+            if (lastRecord.offenseAvg > userOffenseAvg) {
+                return false;
+            } else if (lastRecord.offenseAvg === userOffenseAvg) {
+                if (lastRecord.defenseAvg < userDefenseAvg) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    };
+
+    isInRanking();
+
+    const callSetRanking = async () => {
         if (!result) return;
         if (!isLogin) return alert('로그인이 필요한 서비스입니다.');
         if (credit < 1) return alert('보유한 Credit이 없습니다.');
+        if (await isInRanking()) return alert('순위권 안에 들지 못했습니다.');
         setModalOpen(true);
     };
 
