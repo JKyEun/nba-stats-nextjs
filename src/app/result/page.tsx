@@ -66,7 +66,7 @@ export default function Result() {
         if (!result) return;
         if (!isLogin) return alert('로그인이 필요한 서비스입니다.');
         if (credit < 1) return alert('보유한 Credit이 없습니다.');
-        if (await isInRanking()) return alert('순위권 안에 들지 못했습니다.');
+        if (await !isInRanking()) return alert('순위권 안에 들지 못했습니다.');
         setModalOpen(true);
     };
 

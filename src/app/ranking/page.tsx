@@ -6,6 +6,7 @@ import { EachRank } from '../types/rank';
 import '../../style/rankingPage.scss';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function Ranking() {
     const router = useRouter();
@@ -16,10 +17,6 @@ export default function Ranking() {
         setRanking(ranking);
     };
 
-    const exitRankingPage = () => {
-        router.push('/');
-    };
-
     useEffect(() => {
         callGetRanking();
     }, []);
@@ -28,9 +25,9 @@ export default function Ranking() {
         <div className='ranking-page'>
             <div className='ranking-wrap'>
                 <h2 className='title'>이번 주 랭킹</h2>
-                <div onClick={exitRankingPage} className='exit'>
+                <Link href='/' className='exit'>
                     <Image src='/close.svg' alt='나가기' width={24} height={24} />
-                </div>
+                </Link>
                 <div className='table-wrap'>
                     <div className='table-head'>
                         <div className='rank'>순위</div>
