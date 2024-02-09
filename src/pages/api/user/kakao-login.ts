@@ -16,7 +16,7 @@ export default async function kakaoLogin(req: NextApiRequest, res: NextApiRespon
                 const newUser = {
                     id,
                     password: '0000',
-                    credit: 1
+                    credit: 100
                 };
                 await userDB.insertOne(newUser);
 
