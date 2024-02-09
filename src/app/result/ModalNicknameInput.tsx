@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ChangeEvent, Dispatch, SetStateAction, useRef, useState } from 'react';
+import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import useOutsideClick from '../hooks/useOutsideClick';
 import { Result } from '../types/stat';
 import { setRanking } from '../apis/ranking';
@@ -17,8 +17,8 @@ export default function ModalNicknameInput({
     result: Result | undefined;
 }) {
     const [nicknameInput, setNicknameInput] = useState<string>('');
+    const [userId, setUserId] = useState<number>(0);
     const modalRef = useRef<HTMLDivElement>(null);
-    const id = window.localStorage.getItem('ID');
 
     const onNicknameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         setNicknameInput(e.target.value);
@@ -28,7 +28,7 @@ export default function ModalNicknameInput({
         if (!nicknameInput) return alert('닉네임을 입력하세요.');
         if (!result) return;
         try {
-            await decreaseUserCredit(Number(id));
+            await decreaseUserCredit(Number(userId) || 0);
             await setRanking(result, nicknameInput);
             setModalOpen(false);
             alert('랭킹이 등록되었습니다.');
@@ -36,6 +36,13 @@ export default function ModalNicknameInput({
             console.error(err);
         }
     };
+
+    useEffect(() => {
+        const id = window.localStorage.getItem('ID');
+        if (id) {
+            setUserId(Number(id));
+        }
+    }, []);
 
     useOutsideClick(isModalOpen, modalRef, setModalOpen);
 
