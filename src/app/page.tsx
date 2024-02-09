@@ -93,7 +93,7 @@ export default function StatPage() {
                                         <span className='player-cost'>${player.cost}</span>
                                         <span className='player-name'>{player.name}</span>
                                         <span onClick={() => removePlayer(player)} className='remove-btn'>
-                                            <Image src='/close.svg' width={20} height={20} alt='닫기' />
+                                            <Image src='/close-black.svg' width={20} height={20} alt='닫기' />
                                         </span>
                                     </div>
                                 ))}
